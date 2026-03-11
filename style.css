@@ -1,0 +1,102 @@
+
+.my-btn {
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: #F5F7FA;
+  color: #1A1E2B;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+.my-btn:hover {
+  background: #e0e4ed;
+}
+
+.my-btn:active {
+  filter: brightness(90%);
+}
+
+.my-btn.primary {
+  background: #0047BB;
+  color: white;
+}
+
+.my-btn.primary:hover {
+  background: #003399;
+}
+
+.my-btn.secondary {
+  background: #1CD2C2;
+  color: #1A1E2B;
+}
+
+.my-btn.secondary:hover {
+  background: #17b8aa;
+}
+
+.my-btn.execute {
+  width: 110px;
+  border-radius: 34px;
+}
+
+.result {
+  width: 220px;
+  height: 50px;
+  margin-bottom: 15px;
+  padding-right: 10px;
+  background: #1A1E2B;
+  text-align: right;
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 8px;
+  line-height: 50px;
+}
+
+body {
+  background-color: #E8ECF2;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+  margin: 0;
+  min-height: 100vh;
+}
+
+body > div {
+  background-color: #FFFFFF;
+  padding: 25px;
+  border-radius: 20px;
+  display: inline-block;
+  box-shadow: 0 10px 25px rgba(0, 71, 187, 0.15);
+  border: 1px solid #D1D9E6;
+}
+
+.github-btn {
+  width: 120px !important;
+  height: 40px !important;
+  border-radius: 20px !important;
+  background: #0047BB !important;
+  color: white !important;
+  font-size: 1rem !important;
+  white-space: nowrap !important;
+  padding: 0 15px !important;
+  margin-top: 15px !important;
+  border: none !important;
+  line-height: 40px !important;
+  text-align: center !important;
+}
+
+.github-btn:hover {
+  background: #003399 !important;
+}
+
+.github-btn.execute {
+  width: 120px !important;
+  border-radius: 20px !important;
+}
