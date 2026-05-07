@@ -14,9 +14,14 @@ export class MainPage {
         return (
             `
                 <div id="main-page">
-                    <div class="header-section rounded-3">
+                     <div class="header-section rounded-3">
                         <h1>Решения для удаленного подключения</h1>
                         <p>Безопасный удаленный доступ, поддержка и совместная работа для всех</p>
+                        <div class="gallery-link-container">
+                            <a href="gallery/index.html" class="btn btn-success">
+                                3D решения
+                            </a>
+                        </div>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center gap-4" id="cards-container"></div>
                 </div>
@@ -34,7 +39,7 @@ export class MainPage {
             },
             {
                 id: 2,
-                src: "https://img.freepik.com/free-vector/call-center-concept-illustration_114360-8710.jpg",
+                src: "https://img.freepik.com/free-vector/customer-support-concept-illustration_114360-6886.jpg",
                 title: "Удаленная поддержка",
                 text: "Предоставляйте мгновенную ИТ-поддержку клиентам и сотрудникам"
             },

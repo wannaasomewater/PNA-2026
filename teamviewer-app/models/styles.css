@@ -1,0 +1,8 @@
+/* Общие стили для 3D галереи */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
