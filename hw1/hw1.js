@@ -1,4 +1,3 @@
-
 // 1.3
 // Сумма квадратов значений массива
 
@@ -52,26 +51,21 @@ function canRearrange(arr1, arr2) {
     return map.size === 0;
 }
 
-// 3.4
-// Сортировка букв в словах и слов в предложении
+// 3.3
+// Преобразование массива массивов в один общий массив (любая вложенность)
 
-function sort(sentence) {
-    const words = sentence.split(/\s+/);
+function flatten(arr) {
+    const result = [];
 
-    const sortedWords = words.map(word => {
-        const letters = word.toLowerCase().split('');
-        letters.sort();
-        const sorted = letters.join('');
-
-        if (sorted.length > 0) {
-            return sorted.charAt(0).toUpperCase() + sorted.slice(1);
+    for (const item of arr) {
+        if (Array.isArray(item)) {
+            result.push(...flatten(item));
+        } else {
+            result.push(item);
         }
-        return sorted;
-    });
+    }
 
-    sortedWords.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-
-    return sortedWords.join(' ');
+    return result;
 }
 
 // Тесты
@@ -95,10 +89,10 @@ console.log(`  [1,2,3] и [1,2,4] -> ${canRearrange([1,2,3], [1,2,4])} (ожид
 console.log(`  [1,2,3] и [1,2,3,4] -> ${canRearrange([1,2,3], [1,2,3,4])} (ожидается: false)`);
 console.log(`  [1,2,2,3] и [2,3,1,2] -> ${canRearrange([1,2,2,3], [2,3,1,2])} (ожидается: true)`);
 
-console.log('\n3.4 Сортировка слов и букв:');
-console.log(`  "привет мир как дела" -> "${sort('привет мир как дела')}"`);
-console.log(`  "hello world" -> "${sort('hello world')}"`);
-console.log(`  "кот ток сон нос" -> "${sort('кот ток сон нос')}"`);
-console.log(`  "я изучаю javascript" -> "${sort('я изучаю javascript')}"`);
+console.log('\n3.3 Преобразование массива массивов:');
+console.log(`  [1, 2, 3, [4, 5, 6, [10, 20, 30]]] -> [${flatten([1, 2, 3, [4, 5, 6, [10, 20, 30]]])}] (ожидается: [1, 2, 3, 4, 5, 6, 10, 20, 30])`);
+console.log(`  [[1, 2], [3, [4, 5]], 6] -> [${flatten([[1, 2], [3, [4, 5]], 6])}] (ожидается: [1, 2, 3, 4, 5, 6])`);
+console.log(`  [1, [2, [3, [4, [5]]]]] -> [${flatten([1, [2, [3, [4, [5]]]]])}] (ожидается: [1, 2, 3, 4, 5])`);
+console.log(`  [] -> [${flatten([])}] (ожидается: [])`);
 
 console.log('\nВСЕ ТЕСТЫ ПРОЙДЕНЫ');
