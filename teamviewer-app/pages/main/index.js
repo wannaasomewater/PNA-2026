@@ -34,7 +34,7 @@ export class MainPage {
             },
             {
                 id: 2,
-                src: "https://img.freepik.com/free-vector/customer-support-concept-illustration_114360-6886.jpg",
+                src: "https://img.freepik.com/free-vector/call-center-concept-illustration_114360-8710.jpg",
                 title: "Удаленная поддержка",
                 text: "Предоставляйте мгновенную ИТ-поддержку клиентам и сотрудникам"
             },
