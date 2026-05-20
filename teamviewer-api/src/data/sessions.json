@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "deviceName": "Work-PC-01",
+    "user": "alex@company.com",
+    "status": "connected",
+    "sessionTime": "02:15:34",
+    "ipAddress": "192.168.1.101"
+  },
+  {
+    "id": 2,
+    "deviceName": "Home-Laptop",
+    "user": "ivan@remote.com",
+    "status": "vse klassno",
+    "sessionTime": "00:00:00",
+    "ipAddress": "87.250.250.242"
+  },
+  {
+    "id": 3,
+    "deviceName": "Server-DB-02",
+    "user": "support@teamviewer.com",
+    "status": "connected",
+    "sessionTime": "05:42:18",
+    "ipAddress": "10.0.0.45"
+  },
+  {
+    "id": 4,
+    "deviceName": "Client-NB-99",
+    "user": "client@firm.ru",
+    "status": "waiting",
+    "sessionTime": "00:00:00",
+    "ipAddress": "192.168.0.222"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "teamviewer-api",
+  "version": "1.0.0",
+  "description": "REST API для управления сеансами удалённого доступа (в стиле TeamViewer)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "swagger-ui-express": "^5.0.0",
+    "swagger-jsdoc": "^6.2.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
