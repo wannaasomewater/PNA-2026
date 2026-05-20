@@ -1,66 +1,82 @@
-import {ProductComponent} from "../../components/product/index.js";
-import {BackButtonComponent} from "../../components/back-button/index.js";
-import {MainPage} from "../main/index.js";
+import { ProductComponent } from "../../components/product/index.js";
+import { BackButtonComponent } from "../../components/back-button/index.js";
+import { MainPage } from "../main/index.js";
+import { ajax } from "../../modules/ajax.js";
+import { sessionsUrls } from "../../modules/sessionsUrls.js";
 
 export class ProductPage {
     constructor(parent, id) {
         this.parent = parent;
         this.id = id;
-    }
-
-    getData() {
-        const productsData = {
-            1: {
-                id: 1,
-                src: "https://img.freepik.com/free-vector/remote-access-concept-illustration_114360-1213.jpg",
-                title: "Удаленный доступ",
-                text: "Подключайтесь к любому устройству безопасно из любой точки мира. TeamViewer обеспечивает бесшовное подключение со сквозным шифрованием."
-            },
-            2: {
-                id: 2,
-                src: "https://img.freepik.com/free-vector/customer-support-concept-illustration_114360-6886.jpg",
-                title: "Удаленная поддержка",
-                text: "Предоставляйте мгновенную ИТ-поддержку клиентам и сотрудникам. Решайте проблемы быстрее с помощью наших инструментов удаленной поддержки."
-            },
-            3: {
-                id: 3,
-                src: "https://img.freepik.com/free-vector/teamwork-concept-illustration_114360-678.jpg",
-                title: "Совместная работа",
-                text: "Работайте вместе в реальном времени с интегрированными инструментами. Делитесь экранами, передавайте файлы и общайтесь без усилий."
-            },
-            4: {
-                id: 4,
-                src: "https://img.freepik.com/free-vector/iot-internet-things-concept-illustration_114360-5416.jpg",
-                title: "Управление IoT",
-                text: "Отслеживайте и управляйте устройствами IoT в вашей сети. Обеспечьте безопасность и работоспособность подключенных устройств 24/7."
-            },
-            5: {
-                id: 5,
-                src: "https://img.freepik.com/free-vector/enterprise-resource-planning-concept-illustration_114360-8660.jpg",
-                title: "Корпоративные решения",
-                text: "Масштабируемые решения для развертывания на уровне предприятия. Централизованное управление и расширенные функции безопасности."
-            },
-            6: {
-                id: 6,
-                src: "https://img.freepik.com/free-vector/augmented-reality-concept-illustration_114360-7600.jpg",
-                title: "Дополненная реальность",
-                text: "Удаленная помощь с AR-технологиями для полевых сотрудников. Трансформируйте подход к решению сложных технических задач."
-            }
-        };
-
-        return productsData[this.id] || productsData[1];
+        this.session = null;
     }
 
     get pageRoot() {
-        return document.getElementById('product-page')
+        return document.getElementById('product-page');
     }
 
     getHTML() {
-        return (
+        return `<div id="product-page"></div>`;
+    }
+
+    // 🔥 КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: загружаем конкретный сеанс по ID
+    getData() {
+        ajax.get(sessionsUrls.getSessionById(this.id), (data, status) => {
+            if (status === 200 && data) {
+                this.session = data;
+                this.renderProduct();
+            } else if (status === 404) {
+                const container = this.pageRoot;
+                if (container) {
+                    container.innerHTML = '<div class="alert alert-danger">Сеанс не найден</div>';
+                }
+            } else {
+                console.error('Ошибка загрузки:', status, data);
+                const container = this.pageRoot;
+                if (container) {
+                    container.innerHTML = '<div class="alert alert-danger">Ошибка загрузки данных</div>';
+                }
+            }
+        });
+    }
+
+    renderProduct() {
+        if (!this.session) return;
+
+        const productData = {
+            id: this.session.id,
+            src: this.getImageForStatus(this.session.status),
+            title: this.session.deviceName,
+            text: `
+                <strong>Пользователь:</strong> ${this.session.user}<br>
+                <strong>IP-адрес:</strong> ${this.session.ipAddress}<br>
+                <strong>Время сеанса:</strong> ${this.session.sessionTime}<br>
+                <strong>Статус:</strong> ${this.formatStatus(this.session.status)}
             `
-                <div id="product-page"></div>
-            `
-        )
+        };
+
+        const product = new ProductComponent(this.pageRoot);
+        product.render(productData);
+    }
+
+    getImageForStatus(status) {
+        switch(status) {
+            case 'connected':
+                return 'https://img.freepik.com/free-vector/remote-access-concept-illustration_114360-1213.jpg';
+            case 'waiting':
+                return 'https://img.freepik.com/free-vector/customer-support-concept-illustration_114360-6886.jpg';
+            default:
+                return 'https://img.freepik.com/free-vector/teamwork-concept-illustration_114360-678.jpg';
+        }
+    }
+
+    formatStatus(status) {
+        const statusMap = {
+            'connected': 'Подключён',
+            'waiting': 'Ожидание',
+            'disconnected': 'Отключён'
+        };
+        return statusMap[status] || status;
     }
 
     clickBack() {
@@ -69,15 +85,13 @@ export class ProductPage {
     }
 
     render() {
-        this.parent.innerHTML = ''
-        const html = this.getHTML()
-        this.parent.insertAdjacentHTML('beforeend', html)
+        this.parent.innerHTML = '';
+        const html = this.getHTML();
+        this.parent.insertAdjacentHTML('beforeend', html);
 
-        const backButton = new BackButtonComponent(this.pageRoot)
-        backButton.render(this.clickBack.bind(this))
+        const backButton = new BackButtonComponent(this.pageRoot);
+        backButton.render(this.clickBack.bind(this));
 
-        const data = this.getData()
-        const product = new ProductComponent(this.pageRoot)
-        product.render(data)
+        this.getData();  // 🔥 загружаем данные при рендере
     }
 }
