@@ -12,6 +12,17 @@ const DATA_FILE_PATH = path.join(__dirname, 'data/sessions.json');
 
 sessionsService.init(DATA_FILE_PATH);
 
+// CORS middleware
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
+
 app.use(express.json());
 
 app.use((req, res, next) => {

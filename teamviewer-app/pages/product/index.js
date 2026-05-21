@@ -92,6 +92,6 @@ export class ProductPage {
         const backButton = new BackButtonComponent(this.pageRoot);
         backButton.render(this.clickBack.bind(this));
 
-        this.getData();  // 🔥 загружаем данные при рендере
+        this.getData();
     }
 }
