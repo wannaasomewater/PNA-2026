@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamViewer - Удаленное подключение</title>
+    <style>
+        :root {
+            --tv-blue: #0E71EB;
+            --tv-dark: #1B2333;
+            --tv-light: #F5F7FA;
+        }
+
+        body {
+            background-color: var(--tv-light);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--tv-blue) !important;
+            font-size: 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--tv-blue);
+            border-color: var(--tv-blue);
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0A5ECC;
+            border-color: #0A5ECC;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 113, 235, 0.3);
+        }
+
+        .btn-outline-primary {
+            color: var(--tv-blue);
+            border-color: var(--tv-blue);
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 8px;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--tv-blue);
+            border-color: var(--tv-blue);
+            color: white;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .card-title {
+            color: var(--tv-dark);
+            font-weight: 700;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, var(--tv-blue) 0%, #0652B3 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .header-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .product-detail-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .product-detail-card img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge {
+            background-color: var(--tv-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: var(--tv-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/index-BOHWtTjZ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CfkJyshZ.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-right: 8px;">
+                    <circle cx="16" cy="16" r="14" fill="#0E71EB"/>
+                    <path d="M12 12L20 20M20 12L12 20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                TeamViewer
+            </a>
+            <div class="d-flex">
+                <span class="badge">Удаленное подключение</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="root"></div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

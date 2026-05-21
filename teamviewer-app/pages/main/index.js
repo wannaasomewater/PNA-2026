@@ -1,7 +1,5 @@
 import { ProductCardComponent } from "../../components/product-card/index.js";
 import { ProductPage } from "../product/index.js";
-import { ajax } from "../../modules/ajax.js";
-import { sessionsUrls } from "../../modules/sessionsUrls.js";
 
 export class MainPage {
     constructor(parent) {
@@ -35,25 +33,30 @@ export class MainPage {
         }
     }
 
-    getData() {
-        this.showDebugMessage('Загрузка данных с сервера...');
+    async getData() {
+        this.showDebugMessage('Загрузка данных с сервера (fetch)...');
 
-        const url = sessionsUrls.getSessions();
-        this.showDebugMessage(`Запрос к: ${url}`);
+        try {
+            const url = '/sessions';
+            this.showDebugMessage(`Запрос к: ${url}`);
 
-        ajax.get(url, (data, status) => {
-            this.showDebugMessage(`Статус ответа: ${status}`);
+            const response = await fetch(url);
+            this.showDebugMessage(`Статус ответа: ${response.status}`);
 
-            if (status === 200 && data) {
-                this.showDebugMessage(`Получено сеансов: ${data.length}`);
-                this.sessions = data;
-                this.renderCards();
-            } else {
-                const errorMsg = `Ошибка: статус ${status}<br>Данные: ${JSON.stringify(data)}`;
-                this.showDebugMessage(errorMsg, true);
-                console.error('Ошибка загрузки:', status, data);
+            if (!response.ok) {
+                throw new Error(`HTTP ошибка: ${response.status}`);
             }
-        });
+
+            const data = await response.json();
+            this.showDebugMessage(`Получено сеансов: ${data.length}`);
+            this.sessions = data;
+            this.renderCards();
+
+        } catch (error) {
+            const errorMsg = `Ошибка: ${error.message}`;
+            this.showDebugMessage(errorMsg, true);
+            console.error('Ошибка загрузки:', error);
+        }
     }
 
     renderCards() {

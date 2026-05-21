@@ -1,8 +1,6 @@
 import { ProductComponent } from "../../components/product/index.js";
 import { BackButtonComponent } from "../../components/back-button/index.js";
 import { MainPage } from "../main/index.js";
-import { ajax } from "../../modules/ajax.js";
-import { sessionsUrls } from "../../modules/sessionsUrls.js";
 
 export class ProductPage {
     constructor(parent, id) {
@@ -19,25 +17,27 @@ export class ProductPage {
         return `<div id="product-page"></div>`;
     }
 
-    // 🔥 КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: загружаем конкретный сеанс по ID
-    getData() {
-        ajax.get(sessionsUrls.getSessionById(this.id), (data, status) => {
-            if (status === 200 && data) {
-                this.session = data;
-                this.renderProduct();
-            } else if (status === 404) {
-                const container = this.pageRoot;
-                if (container) {
-                    container.innerHTML = '<div class="alert alert-danger">Сеанс не найден</div>';
+    async getData() {
+        try {
+            const response = await fetch(`/sessions/${this.id}`);
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('Сеанс не найден');
                 }
-            } else {
-                console.error('Ошибка загрузки:', status, data);
-                const container = this.pageRoot;
-                if (container) {
-                    container.innerHTML = '<div class="alert alert-danger">Ошибка загрузки данных</div>';
-                }
+                throw new Error(`HTTP ошибка: ${response.status}`);
             }
-        });
+
+            this.session = await response.json();
+            this.renderProduct();
+
+        } catch (error) {
+            console.error('Ошибка загрузки:', error);
+            const container = this.pageRoot;
+            if (container) {
+                container.innerHTML += `<div class="alert alert-danger">${error.message}</div>`;
+            }
+        }
     }
 
     renderProduct() {
